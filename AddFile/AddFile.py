@@ -1,7 +1,7 @@
 ############################################################################################################
 # Author: LHYe200
-# Date: 2025-02-03
-# Version: 1.0
+# Date: 2025-02-04
+# Version: 1.1
 # Usage: python AddFile.py
 # 注意: 请将本文件放在uvproj文件同一目录下运行
 # Note: Please run this file in the same directory as the uvproj file
@@ -20,7 +20,7 @@ source_file_path = "./"
 header_file_path = "./Header"
 source_group_name = "Source"
 header_group_name = "Header"
-auto_include_in_source = '#include "./Header/AI8H.H"'
+auto_include_in_source = '#include "Header/AI8H.H"'
 change_to_create_hex_file = True
 
 
@@ -77,7 +77,7 @@ def createSourceFile(file_name,has_header):
         with open(os.path.join(source_file_path , file_name), "w") as f:
             f.write(auto_include_in_source + "\n")
             if has_header:
-                f.write("#include \"./"+str(os.path.normpath(os.path.join(header_file_path, file_name))).replace("\\","/")[:-2] + ".h\"\n")
+                f.write("#include \"./"+str(os.path.normpath(os.path.relpath(os.path.join(header_file_path, file_name)[:-2] + ".h",os.path.join(source_file_path, file_name)).replace("..",".",1))).replace("\\","/")+ "\"\n")
     print("Create source file success!")
 
 
